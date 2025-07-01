@@ -225,43 +225,43 @@ public final class ArrayUtils {
         }
     }
 
-    public static void shuffle(int[] arr) {
+    public static void shuffle(int... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
     }
 
-    public static void shuffle(long[] arr) {
+    public static void shuffle(long... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
     }
 
-    public static void shuffle(float[] arr) {
+    public static void shuffle(float... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
     }
 
-    public static void shuffle(double[] arr) {
+    public static void shuffle(double... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
     }
 
-    public static void shuffle(boolean[] arr) {
+    public static void shuffle(boolean... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
     }
 
-    public static void shuffle(char[] arr) {
+    public static void shuffle(char... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
     }
 
-    public static void shuffle(Object[] arr) {
+    public static void shuffle(Object... arr) {
         for (var i = arr.length; i > 1; i = i - 1) {
             swap(arr, i - 1, randomInt(i));
         }
@@ -272,55 +272,55 @@ public final class ArrayUtils {
 
     //************* reverse START ***************
 
-    public static void reverse(byte[] arr) {
+    public static void reverse(byte... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(short[] arr) {
+    public static void reverse(short... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(int[] arr) {
+    public static void reverse(int... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(long[] arr) {
+    public static void reverse(long... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(float[] arr) {
+    public static void reverse(float... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(double[] arr) {
+    public static void reverse(double... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(boolean[] arr) {
+    public static void reverse(boolean... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(char[] arr) {
+    public static void reverse(char... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
     }
 
-    public static void reverse(Object[] arr) {
+    public static void reverse(Object... arr) {
         for (int i = 0, mid = arr.length / 2; i < mid; i = i + 1) {
             swap(arr, i, arr.length - i - 1);
         }
