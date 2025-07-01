@@ -651,62 +651,205 @@ public final class ArrayUtils {
 
     //********************* concat START *********************
 
+    public static byte[] concat(byte[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new byte[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static short[] concat(short[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new short[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static int[] concat(int[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new int[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static long[] concat(long[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new long[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static float[] concat(float[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new float[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static double[] concat(double[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new double[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static boolean[] concat(boolean[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new boolean[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    public static char[] concat(char[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = new char[totalLength];
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
+    /// 该方法可以正确处理数组协变.
+    /// 因为 `arrays` 参数在编译期会被推断为传入数组的最小公共父类 (即协变后的上界类型),
+    /// 所以可以通过 `arrays.getClass().componentType().componentType()` 来获取推断后的组件类型.
+    @SuppressWarnings("unchecked")
+    public static <T> T[] concat(T[]... arrays) {
+        int totalLength = 0;
+        for (var arr : arrays) {
+            totalLength += arr.length;
+        }
+        var result = (T[]) Array.newInstance(arrays.getClass().componentType().componentType(), totalLength);
+        var pos = 0;
+        for (var arr : arrays) {
+            System.arraycopy(arr, 0, result, pos, arr.length);
+            pos += arr.length;
+        }
+        return result;
+    }
+
     public static byte[] concat(byte[] first, byte... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new byte[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static short[] concat(short[] first, short... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new short[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static int[] concat(int[] first, int... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new int[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static long[] concat(long[] first, long... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new long[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static float[] concat(float[] first, float... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new float[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static double[] concat(double[] first, double... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new double[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static boolean[] concat(boolean[] first, boolean... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new boolean[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
     public static char[] concat(char[] first, char... second) {
-        var result = Arrays.copyOf(first, first.length + second.length);
+        var result = new char[first.length + second.length];
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
-    @SafeVarargs
+    /// 此方法无法正确处理数组协变.
+    /// 因推断两个数组类型的共同父类或接口较为复杂且非常耗费性能,
+    /// 此方法假设 first 和 second 是完全相同的类型.
+    /// 如果需要处理数组协变问题 可以使用 {@link ArrayUtils#concat(Object[][])} 或 {@link ArrayUtils#concatAny(Object[], Object...)}}
+    @SuppressWarnings("unchecked")
     public static <T> T[] concat(T[] first, T... second) {
-        T[] result = Arrays.copyOf(first, first.length + second.length);
+        var result = (T[]) Array.newInstance(first.getClass().componentType(), first.length + second.length);
+        System.arraycopy(first, 0, result, 0, first.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
-    /// 可处理 {@link ArrayUtils#concat(Object[], Object...)} 无法处理的协变问题
+    /// 全部使用 Object 以便越过 {@link ArrayUtils#concat(Object[], Object...)} 无法处理的协变问题
     public static Object[] concatAny(Object[] first, Object... second) {
         var result = new Object[first.length + second.length];
         System.arraycopy(first, 0, result, 0, first.length);
