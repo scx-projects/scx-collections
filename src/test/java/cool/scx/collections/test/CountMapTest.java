@@ -106,5 +106,5 @@ public class CountMapTest {
         Assert.assertEquals(map.get("key1"), Long.valueOf(5));
         Assert.assertEquals(map.get("key2"), Long.valueOf(10));
     }
-    
+
 }
