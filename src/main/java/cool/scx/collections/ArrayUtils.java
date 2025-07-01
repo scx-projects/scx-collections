@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-/// 提供一些操作 Array 的方法
+/// ArrayUtils
 ///
 /// @author scx567888
 /// @version 0.0.1
@@ -820,12 +820,14 @@ public final class ArrayUtils {
 
     //********************* concat END *********************
 
-    //********************* tryConcat START *********************
-
-    //********************* tryConcat END *********************
-
 
     //********************* splitArray START *****************
+
+    /// 计算 长度可以被分割为几个子长度 (向上取整)
+    private static int numOfSlices(int length, int n) {
+        return (length + n - 1) / n;
+    }
+
     public static byte[][] splitArray(byte[] arr, int sliceSize) {
         var numOfSlices = numOfSlices(arr.length, sliceSize);
         var result = new byte[numOfSlices][];
@@ -914,29 +916,15 @@ public final class ArrayUtils {
         return result;
     }
 
+    /// 按照指定长度切割数组
     @SuppressWarnings("unchecked")
     public static <T> T[][] splitArray(T[] arr, int sliceSize) {
         int numOfSlices = numOfSlices(arr.length, sliceSize);
-        var result = (T[][]) Array.newInstance(arr.getClass().getComponentType(), numOfSlices, 0);
+        var result = (T[][]) Array.newInstance(arr.getClass().componentType(), numOfSlices, 0);
         for (int i = 0; i < numOfSlices; i = i + 1) {
             var start = i * sliceSize;
             var end = Math.min(start + sliceSize, arr.length);
             result[i] = Arrays.copyOfRange(arr, start, end);
-        }
-        return result;
-    }
-
-    /// 按照指定长度切割 List, 注意和 [#splitListN(List,int)]} 进行区分
-    ///
-    /// @param list list
-    /// @param size 每份的长度
-    /// @param <T>  T
-    /// @return 切割后的 list
-    public static <T> List<List<T>> splitList(List<T> list, int size) {
-        List<List<T>> result = new ArrayList<>();
-        for (int i = 0; i < list.size(); i = i + size) {
-            int end = Math.min(i + size, list.size());
-            result.add(list.subList(i, end));
         }
         return result;
     }
@@ -977,70 +965,13 @@ public final class ArrayUtils {
         return splitArray(arr, numOfSlices(arr.length, n));
     }
 
-    /// 按照指定份数切割 List, 注意和 [#splitList(List,int)] 进行区分
-    ///
-    /// @param arr arr
-    /// @param n   份数
-    /// @param <T> T
-    /// @return 切割后的 list
+    /// 按照指定份数切割 数组, 注意和 {@link ArrayUtils#splitArray(Object[], int)} 进行区分
     public static <T> T[][] splitArrayN(T[] arr, int n) {
         return splitArray(arr, numOfSlices(arr.length, n));
     }
 
-    /// 按照指定份数切割 List, 注意和 [#splitList(List,int)] 进行区分
-    ///
-    /// @param list list
-    /// @param n    份数
-    /// @param <T>  T
-    /// @return 切割后的 list
-    public static <T> List<List<T>> splitListN(List<T> list, int n) {
-        return splitList(list, numOfSlices(list.size(), n));
-    }
-
     //********************* splitArrayN END *****************
 
-    public static Object[] toObjectArray(Object source) {
-        if (source instanceof Object[] objectArr) {
-            return objectArr;
-        }
-        if (source == null) {
-            return new Object[0];
-        }
-        if (source instanceof Collection<?> collection) {
-            return collection.toArray();
-        }
-        if (source.getClass().isArray()) {
-            return switch (source) {
-                case byte[] arr -> toWrapper(arr);
-                case short[] arr -> toWrapper(arr);
-                case int[] arr -> toWrapper(arr);
-                case long[] arr -> toWrapper(arr);
-                case float[] arr -> toWrapper(arr);
-                case double[] arr -> toWrapper(arr);
-                case boolean[] arr -> toWrapper(arr);
-                case char[] arr -> toWrapper(arr);
-                default -> throw new IllegalStateException("错误值 : " + source);
-            };
-        }
-        throw new IllegalArgumentException("源数据无法转换为数组对象 !!!");
-    }
-
-    public static long[] toLongArray(int... intArray) {
-        var longArray = new long[intArray.length];
-        for (int i = 0; i < intArray.length; i = i + 1) {
-            longArray[i] = intArray[i];
-        }
-        return longArray;
-    }
-
-    /// 计算 长度可以被分割为几个子长度 (向上取整)
-    ///
-    /// @param length l
-    /// @param n      n
-    /// @return c
-    public static int numOfSlices(int length, int n) {
-        return length % n > 0 ? length / n + 1 : length / n;
-    }
 
     //********************* subArray START *****************
 
@@ -1115,7 +1046,7 @@ public final class ArrayUtils {
     @SuppressWarnings("unchecked")
     public static <T> T[] subArray(T[] array, int fromIndex, int toIndex) {
         subArrayCheck(fromIndex, toIndex, array.length);
-        var subArray = (T[]) Array.newInstance(array.getClass().getComponentType(), toIndex - fromIndex);
+        var subArray = (T[]) Array.newInstance(array.getClass().componentType(), toIndex - fromIndex);
         System.arraycopy(array, fromIndex, subArray, 0, subArray.length);
         return subArray;
     }
@@ -1249,14 +1180,32 @@ public final class ArrayUtils {
             toIndex = array.length;
         }
         if (fromIndex >= toIndex) {
-            return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
+            return (T[]) Array.newInstance(array.getClass().componentType(), 0);
         }
-        var subArray = (T[]) Array.newInstance(array.getClass().getComponentType(), toIndex - fromIndex);
+        var subArray = (T[]) Array.newInstance(array.getClass().componentType(), toIndex - fromIndex);
         System.arraycopy(array, fromIndex, subArray, 0, subArray.length);
         return subArray;
     }
 
     //********************* subArray END *****************
+
+
+    //********************* 其他功能 START *****************
+
+    /// 按照指定长度切割 List, 注意和 [#splitListN(List,int)]} 进行区分
+    public static <T> List<List<T>> splitList(List<T> list, int size) {
+        List<List<T>> result = new ArrayList<>();
+        for (int i = 0; i < list.size(); i = i + size) {
+            int end = Math.min(i + size, list.size());
+            result.add(list.subList(i, end));
+        }
+        return result;
+    }
+
+    /// 按照指定份数切割 List, 注意和 [#splitList(List,int)] 进行区分
+    public static <T> List<List<T>> splitListN(List<T> list, int n) {
+        return splitList(list, numOfSlices(list.size(), n));
+    }
 
     public static <T> List<T> subList(List<T> list, int fromIndex, int toIndex) {
         return list.subList(fromIndex, toIndex);
@@ -1274,5 +1223,41 @@ public final class ArrayUtils {
         }
         return list.subList(fromIndex, toIndex);
     }
+
+    public static Object[] toObjectArray(Object source) {
+        if (source instanceof Object[] objectArr) {
+            return objectArr;
+        }
+        if (source == null) {
+            return new Object[0];
+        }
+        if (source instanceof Collection<?> collection) {
+            return collection.toArray();
+        }
+        if (source.getClass().isArray()) {
+            return switch (source) {
+                case byte[] arr -> toWrapper(arr);
+                case short[] arr -> toWrapper(arr);
+                case int[] arr -> toWrapper(arr);
+                case long[] arr -> toWrapper(arr);
+                case float[] arr -> toWrapper(arr);
+                case double[] arr -> toWrapper(arr);
+                case boolean[] arr -> toWrapper(arr);
+                case char[] arr -> toWrapper(arr);
+                default -> throw new IllegalStateException("错误值 : " + source);
+            };
+        }
+        throw new IllegalArgumentException("源数据无法转换为数组对象 !!!");
+    }
+
+    public static long[] toLongArray(int... intArray) {
+        var longArray = new long[intArray.length];
+        for (int i = 0; i < intArray.length; i = i + 1) {
+            longArray[i] = intArray[i];
+        }
+        return longArray;
+    }
+
+    //********************* 其他功能 END *****************
 
 }
