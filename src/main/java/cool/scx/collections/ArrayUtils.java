@@ -654,13 +654,17 @@ public final class ArrayUtils {
     public static byte[] concat(byte[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new byte[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -668,13 +672,17 @@ public final class ArrayUtils {
     public static short[] concat(short[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new short[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -682,13 +690,17 @@ public final class ArrayUtils {
     public static int[] concat(int[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new int[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -696,13 +708,17 @@ public final class ArrayUtils {
     public static long[] concat(long[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new long[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -710,13 +726,17 @@ public final class ArrayUtils {
     public static float[] concat(float[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new float[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -724,13 +744,17 @@ public final class ArrayUtils {
     public static double[] concat(double[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new double[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -738,13 +762,17 @@ public final class ArrayUtils {
     public static boolean[] concat(boolean[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new boolean[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -752,13 +780,17 @@ public final class ArrayUtils {
     public static char[] concat(char[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = new char[totalLength];
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
         return result;
     }
@@ -770,90 +802,18 @@ public final class ArrayUtils {
     public static <T> T[] concat(T[]... arrays) {
         int totalLength = 0;
         for (var arr : arrays) {
-            totalLength += arr.length;
+            if (arr != null) {
+                totalLength += arr.length;
+            }
         }
         var result = (T[]) Array.newInstance(arrays.getClass().componentType().componentType(), totalLength);
         var pos = 0;
         for (var arr : arrays) {
-            System.arraycopy(arr, 0, result, pos, arr.length);
-            pos += arr.length;
+            if (arr != null) {
+                System.arraycopy(arr, 0, result, pos, arr.length);
+                pos += arr.length;
+            }
         }
-        return result;
-    }
-
-    public static byte[] concat(byte[] first, byte... second) {
-        var result = new byte[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static short[] concat(short[] first, short... second) {
-        var result = new short[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static int[] concat(int[] first, int... second) {
-        var result = new int[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static long[] concat(long[] first, long... second) {
-        var result = new long[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static float[] concat(float[] first, float... second) {
-        var result = new float[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static double[] concat(double[] first, double... second) {
-        var result = new double[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static boolean[] concat(boolean[] first, boolean... second) {
-        var result = new boolean[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    public static char[] concat(char[] first, char... second) {
-        var result = new char[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    /// 此方法无法正确处理数组协变.
-    /// 因推断两个数组类型的共同父类或接口较为复杂且非常耗费性能,
-    /// 此方法假设 first 和 second 是完全相同的类型.
-    /// 如果需要处理数组协变问题 可以使用 {@link ArrayUtils#concat(Object[][])} 或 {@link ArrayUtils#concatAny(Object[], Object...)}}
-    @SuppressWarnings("unchecked")
-    public static <T> T[] concat(T[] first, T... second) {
-        var result = (T[]) Array.newInstance(first.getClass().componentType(), first.length + second.length);
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
-    }
-
-    /// 全部使用 Object 以便越过 {@link ArrayUtils#concat(Object[], Object...)} 无法处理的协变问题
-    public static Object[] concatAny(Object[] first, Object... second) {
-        var result = new Object[first.length + second.length];
-        System.arraycopy(first, 0, result, 0, first.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
@@ -862,113 +822,10 @@ public final class ArrayUtils {
 
     //********************* tryConcat START *********************
 
-    public static byte[] tryConcat(byte[] first, byte... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static short[] tryConcat(short[] first, short... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static int[] tryConcat(int[] first, int... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static long[] tryConcat(long[] first, long... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static float[] tryConcat(float[] first, float... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static double[] tryConcat(double[] first, double... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static boolean[] tryConcat(boolean[] first, boolean... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    public static char[] tryConcat(char[] first, char... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    @SafeVarargs
-    public static <T> T[] tryConcat(T[] first, T... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concat(first, second);
-    }
-
-    /// 可处理 {@link ArrayUtils#tryConcat(Object[], Object...)} 无法处理的协变问题
-    public static Object[] tryConcatAny(Object[] first, Object... second) {
-        if (first == null || first.length == 0) {
-            return second;
-        }
-        if (second == null || second.length == 0) {
-            return first;
-        }
-        return concatAny(first, second);
-    }
-
     //********************* tryConcat END *********************
 
 
     //********************* splitArray START *****************
-
     public static byte[][] splitArray(byte[] arr, int sliceSize) {
         var numOfSlices = numOfSlices(arr.length, sliceSize);
         var result = new byte[numOfSlices][];
