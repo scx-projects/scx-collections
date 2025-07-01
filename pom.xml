@@ -12,10 +12,10 @@
 
     <artifactId>scx-collections</artifactId>
     <packaging>jar</packaging>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
 
     <name>SCX Collections</name>
-    <url>https://github.com/scx567888/scx-collections</url>
+    <url>https://github.com/scx-projects/scx-collections</url>
     <description>
         SCX Collections
     </description>
@@ -31,14 +31,14 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://github.com/scx567888/scx-collections/blob/master/LICENSE</url>
+            <url>https://github.com/scx-projects/scx-collections/blob/master/LICENSE</url>
         </license>
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/scx567888/scx-collections.git</connection>
-        <developerConnection>scm:git:https://github.com/scx567888/scx-collections.git</developerConnection>
-        <url>https://github.com/scx567888/scx-collections</url>
+        <connection>scm:git:https://github.com/scx-projects/scx-collections.git</connection>
+        <developerConnection>scm:git:https://github.com/scx-projects/scx-collections.git</developerConnection>
+        <url>https://github.com/scx-projects/scx-collections</url>
     </scm>
 
     <build>
