@@ -10,9 +10,9 @@ import java.util.concurrent.atomic.AtomicLong;
 /// @version 0.0.1
 class CountMapIterator<K> implements Iterator<ICountMapEntry<K>> {
 
-    private final Iterator<Map.Entry<K, AtomicLong>> iterator;
+    private final Iterator<Map.Entry<K, Long>> iterator;
 
-    public CountMapIterator(Iterator<Map.Entry<K, AtomicLong>> iterator) {
+    public CountMapIterator(Iterator<Map.Entry<K, Long>> iterator) {
         this.iterator = iterator;
     }
 
@@ -24,7 +24,7 @@ class CountMapIterator<K> implements Iterator<ICountMapEntry<K>> {
     @Override
     public ICountMapEntry<K> next() {
         var next = iterator.next();
-        return new CountMapEntry<>(next.getKey(), next.getValue().get());
+        return new CountMapEntry<>(next.getKey(), next.getValue());
     }
 
 }

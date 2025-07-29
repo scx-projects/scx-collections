@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 /// CountMap
@@ -15,7 +14,7 @@ import java.util.function.Supplier;
 /// @version 0.0.1
 public class CountMap<K> implements ICountMap<K> {
 
-    private final Map<K, AtomicLong> map;
+    private final Map<K, Long> map;
 
     /// 默认内部 map 使用 HashMap
     public CountMap() {
@@ -23,25 +22,23 @@ public class CountMap<K> implements ICountMap<K> {
     }
 
     /// 指定内部的 map 实现
-    public CountMap(Supplier<Map<K, AtomicLong>> mapSupplier) {
+    public CountMap(Supplier<Map<K, Long>> mapSupplier) {
         this.map = mapSupplier.get();
     }
 
     @Override
     public long add(K key, long count) {
-        return map.computeIfAbsent(key, k -> new AtomicLong()).addAndGet(count);
+        return map.merge(key, count, Long::sum);
     }
 
     @Override
     public Long set(K key, long count) {
-        var v = map.put(key, new AtomicLong(count));
-        return v == null ? null : v.get();
+        return map.put(key, count);
     }
 
     @Override
     public Long get(K key) {
-        var v = map.get(key);
-        return v == null ? null : v.get();
+        return map.get(key);
     }
 
     @Override
@@ -51,8 +48,7 @@ public class CountMap<K> implements ICountMap<K> {
 
     @Override
     public Long remove(K key) {
-        var v = map.remove(key);
-        return v == null ? null : v.get();
+        return map.remove(key);
     }
 
     @Override
@@ -83,9 +79,7 @@ public class CountMap<K> implements ICountMap<K> {
     @Override
     public Map<K, Long> toMap(Supplier<Map<K, Long>> mapSupplier) {
         var result = mapSupplier.get();
-        for (var entry : map.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().get());
-        }
+        result.putAll(map);
         return result;
     }
 
@@ -93,14 +87,30 @@ public class CountMap<K> implements ICountMap<K> {
     public <X extends Throwable> void forEach(ObjLongConsumerX<? super K, X> action) throws X {
         for (var entry : map.entrySet()) {
             var key = entry.getKey();
-            var values = entry.getValue().get();
-            action.accept(key, values);
+            var value = entry.getValue();
+            action.accept(key, value);
         }
     }
 
     @Override
     public Iterator<ICountMapEntry<K>> iterator() {
         return new CountMapIterator<>(map.entrySet().iterator());
+    }
+
+    @Override
+    public final boolean equals(Object object) {
+        if (object == this) {
+            return true;
+        }
+        if (object instanceof CountMap<?> o) {
+            return map.equals(o.map);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return map.hashCode();
     }
 
     @Override
