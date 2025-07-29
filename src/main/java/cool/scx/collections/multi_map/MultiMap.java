@@ -35,7 +35,7 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
     @Override
     public boolean add(K key, V... values) {
         var v = map.computeIfAbsent(key, k -> listSupplier.get());
-        return Collections.addAll(v, values);
+        return v.addAll(List.of(values));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
     @Override
     public List<V> set(K key, V... values) {
         var v = listSupplier.get();
-        Collections.addAll(v, values);
+        v.addAll(List.of(values));
         return this.map.put(key, v);
     }
 
@@ -121,11 +121,12 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
         if (v == null) {
             return false;
         }
-        var remove = v.remove(value);
+        // 并发操作时可能存在空列表残留问题, 但并不影响后续逻辑
+        var removed = v.remove(value);
         if (v.isEmpty()) {
             map.remove(key);
         }
-        return remove;
+        return removed;
     }
 
     @Override
@@ -134,14 +135,12 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
         if (v == null) {
             return false;
         }
-        var anyRemoved = false;
-        for (V value : values) {
-            anyRemoved = anyRemoved | v.remove(value);
-        }
+        // 并发操作时可能存在空列表残留问题, 但并不影响后续逻辑
+        var removed = v.removeAll(List.of(values));
         if (v.isEmpty()) {
             map.remove(key);
         }
-        return anyRemoved;
+        return removed;
     }
 
     @Override
@@ -150,11 +149,12 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
         if (v == null) {
             return false;
         }
-        var remove = v.removeAll(values);
+        // 并发操作时可能存在空列表残留问题, 但并不影响后续逻辑
+        var removed = v.removeAll(values);
         if (v.isEmpty()) {
             map.remove(key);
         }
-        return remove;
+        return removed;
     }
 
     @Override
@@ -243,6 +243,22 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
     @Override
     public Iterator<IMultiMapEntry<K, V>> iterator() {
         return new MultiMapIterator<>(map.entrySet().iterator());
+    }
+
+    @Override
+    public final boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof MultiMap<?, ?> o) {
+            return map.equals(o.map);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return map.hashCode();
     }
 
     @Override
