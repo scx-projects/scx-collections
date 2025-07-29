@@ -1,6 +1,6 @@
 package cool.scx.collections.multi_map;
 
-import cool.scx.functional.ScxBiConsumer;
+import cool.scx.function.BiConsumerX;
 
 import java.util.Collection;
 import java.util.List;
@@ -81,8 +81,8 @@ public interface IMultiMap<K, V> extends Iterable<IMultiMapEntry<K, V>> {
 
     Map<K, V> toSingleValueMap(Supplier<Map<K, V>> mapSupplier);
 
-    <E extends Throwable> void forEach(ScxBiConsumer<? super K, V, E> action) throws E;
+    <X extends Throwable> void forEach(BiConsumerX<? super K, V, X> action) throws X;
 
-    <E extends Throwable> void forEachEntry(ScxBiConsumer<? super K, List<V>, E> action) throws E;
+    <X extends Throwable> void forEachEntry(BiConsumerX<? super K, List<V>, X> action) throws X;
 
 }
