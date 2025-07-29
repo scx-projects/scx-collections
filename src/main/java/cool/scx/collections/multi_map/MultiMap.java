@@ -1,6 +1,6 @@
 package cool.scx.collections.multi_map;
 
-import cool.scx.functional.ScxBiConsumer;
+import cool.scx.function.BiConsumerX;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -221,7 +221,7 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
     }
 
     @Override
-    public <E extends Throwable> void forEach(ScxBiConsumer<? super K, V, E> action) throws E {
+    public <X extends Throwable> void forEach(BiConsumerX<? super K, V, X> action) throws X {
         for (var entry : map.entrySet()) {
             var key = entry.getKey();
             var values = entry.getValue();
@@ -232,7 +232,7 @@ public class MultiMap<K, V> implements IMultiMap<K, V> {
     }
 
     @Override
-    public <E extends Throwable> void forEachEntry(ScxBiConsumer<? super K, List<V>, E> action) throws E {
+    public <X extends Throwable> void forEachEntry(BiConsumerX<? super K, List<V>, X> action) throws X {
         for (var entry : map.entrySet()) {
             var key = entry.getKey();
             var values = entry.getValue();
