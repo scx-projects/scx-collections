@@ -1,5 +1,6 @@
-# SCX Collections
-
+<p align="center">
+    <img src="https://scx.cool/scx-logo/scx-collections-logo.svg" width="300px" alt="scx-collections-logo"/>
+</p>
 <p align="center">
     <a target="_blank" href="https://github.com/scx-projects/scx-collections/actions/workflows/ci.yml">
         <img src="https://github.com/scx-projects/scx-collections/actions/workflows/ci.yml/badge.svg" alt="CI"/>
